@@ -1,0 +1,20 @@
+154, Moscow, Saint Petersburg, 10, 1
+289, Kazan, Naberezhnye Chelny, 5, 5
+3456, Novosibirsk, Yekaterinburg, 15, 3
+4536, Rostov-on-Don, Voronezh, 8, 7
+552, Ufa, Chelyabinsk, 12, 2
+65654, Vladivostok, Khabarovsk, 20, 3
+75667, Krasnodar, Sochi, 3, 1
+86546, Nizhny Novgorod, Samara, 7, 15
+965, Penza, Saratov, 9, 1
+1065, Tula, Orel, 6, 1
+242311, Yaroslavl, Ivanovo, 4, 1
+122, Tyumen, Omsk, 14, 2
+23413, Saratov, Ulyanovsk, 8, 1
+2414, Arkhangelsk, Severodvinsk, 5, 25
+135, Chita, Buryatia, 10, 4
+3216, Stavropol, Mineralnye Vody, 11, 1
+217, Belgorod, Kursk, 9, 9
+24318, Kostroma, Yaroslavl, 2, 11
+4319, Lipetsk, Voronezh, 10, 13
+3420, Nizhny Tagil, Yekaterinburg, 13, 1
