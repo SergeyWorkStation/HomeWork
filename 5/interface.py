@@ -1,4 +1,4 @@
-from logistics import Logistic, Delivery
+from logistics import Logistic, Delivery, Queue, Stack
 
 
 def read_deliveries_by_file(filename: str) -> Logistic:
@@ -13,6 +13,8 @@ def write_books_to_file(filename: str, books: Logistic) -> None:
 
 def user_menu(filename: str) -> None:
     my_delivery = read_deliveries_by_file(filename)
+    my_stack = Stack()
+    my_queue = Queue()
     while True:
         print("""Добро пожаловать в систему управления доставкой!
 
@@ -65,45 +67,66 @@ def user_menu(filename: str) -> None:
             while True:
                 print("""Система управления быстрой очередью доставки!
 
-                Выберите действие:
-                1.  Показать очередь
-                2.  Добавить в очередь из списка доставок
-                3.  Обработать очередную доставку
-                4.  Выйти
+    Выберите действие:
+    1.  Показать очередь
+    2.  Добавить в очередь из списка доставок
+    3.  Обработать очередную доставку
+    4.  Выйти
                 """)
                 action = input("Введите номер действия:")
 
                 if action == '1':
                     print("Список всех доставок в очереди:")
-                    print(my_delivery)
+                    print("Очередь пуста" if my_stack.is_empty() else my_stack)
                     input("Для продолжения нажмите Enter")
 
                 if action == '2':
-                    print("Список доставки отсортированный по весу:")
-                    print(my_delivery.sort_by_weight())
+                    print(my_delivery)
+                    deliveries_ids = map(int, input("\nНапишите порядковые номера доставок через пробел:").split())
+                    for delivery_id in deliveries_ids:
+                        my_stack.push(my_delivery[delivery_id-1])
                     input("Для продолжения нажмите Enter")
 
                 if action == '3':
-                    print("Список доставки отсортированный по времени:")
-                    print(my_delivery.sort_by_time())
+                    print(f"Очередная доставка: {my_stack.pop()} - обработана")
                     input("Для продолжения нажмите Enter")
 
                 if action == '4':
                     break
 
         if action == '8':
-            print(my_delivery)
-            try:
-                book_id = int(input("Введите книги которую необходимо удалить :"))
-                # my_delivery.delete_book(book_id - 1)
-                print("Книга удалена из библиотеки")
-            except:
-                print("Не удалось удалить книгу из библиотеки")
-            finally:
-                input("Для продолжения нажмите Enter")
+            while True:
+                print("""Система управления очередью доставки!
 
-        if action == '9':
-            approv = input("Перед завершением работы записать изменения в файл? да/нет:")
-            if approv.lower() == 'да':
+    Выберите действие:
+    1.  Показать очередь
+    2.  Добавить в очередь из списка доставок
+    3.  Обработать очередную доставку
+    4.  Выйти
+                """)
+                action = input("Введите номер действия:")
+
+                if action == '1':
+                    print("Список всех доставок в очереди:")
+                    print("Очередь пуста" if my_queue.is_empty() else my_queue)
+                    input("Для продолжения нажмите Enter")
+
+                if action == '2':
+                    print(my_delivery)
+                    deliveries_ids = map(int, input("\nНапишите порядковые номера доставок через пробел:").split())
+                    for delivery_id in deliveries_ids:
+                        my_queue.enqueue(my_delivery[delivery_id - 1])
+                    input("Для продолжения нажмите Enter")
+
+                if action == '3':
+                    print(f"Очередная доставка: {my_queue.dequeue()} - обработана")
+                    input("Для продолжения нажмите Enter")
+
+                if action == '4':
+                    break
+
+        if action == '10':
+            approve = input("Перед завершением работы записать изменения в файл? да/нет:")
+            if approve.lower() == 'да':
                 write_books_to_file(input("Введите название файла:")+'.txt', my_delivery)
             break

@@ -1,6 +1,5 @@
 from __future__ import annotations
 import algorithms as alg
-from datetime import datetime
 
 
 class Delivery:
@@ -43,8 +42,8 @@ class Logistic:
     def __str__(self) -> str:
         return '\n'.join([f"{i+1}\t {delivery}" for i, delivery in enumerate(self.__delivery_list)])
 
-    # def insert(self, book: str) -> None:
-    #     self.__book_list.append(Book(book.split(', ')))
+    def __getitem__(self, item):
+        return self.__delivery_list[item]
 
     def search_by_number(self, delivery_num: str) -> Logistic | None:
         delivery_list = [delivery for delivery in self.__delivery_list if delivery.number == int(delivery_num)]
@@ -54,10 +53,6 @@ class Logistic:
         sorted_list = self.sort_by_time()
         delivery_index = alg.binary_search(sorted_list.__delivery_list, int(delivery_time))
         return Logistic([sorted_list.__delivery_list[delivery_index]]) if delivery_index != -1  else None
-
-    # def delete_book(self, book_id: int) -> None:
-    #     if 0 <= book_id < len(self.__book_list):
-    #         self.__book_list.pop(book_id)
 
     def sort_by_weight(self) -> Logistic:
         return Logistic(alg.merge_sort(self.__delivery_list.copy()))
@@ -70,43 +65,49 @@ class Logistic:
 
 
 class Queue:
-    def __init__(self):
-        self.queue = []
+    def __init__(self) -> None:
+        self.__queue = []
 
-    def enqueue(self, item):
-        self.queue.append(item)
+    def enqueue(self, item: any) -> None:
+        self.__queue.append(item)
 
-    def dequeue(self):
+    def dequeue(self) -> any:
         if not self.is_empty():
-            return self.queue.pop(0)
+            return self.__queue.pop(0)
         raise IndexError("dequeue from empty queue")
 
-    def is_empty(self):
-        return len(self.queue) == 0
+    def is_empty(self) -> bool:
+        return len(self.__queue) == 0
 
-    def size(self):
-        return len(self.queue)
+    def size(self) -> int:
+        return len(self.__queue)
+
+    def __str__(self) -> str:
+        return '\n'.join([f"{i+1}\t {delivery}" for i, delivery in enumerate(self.__queue)])
 
 
 class Stack:
-    def __init__(self):
-        self.items = []
+    def __init__(self) -> None:
+        self.__items = []
 
-    def is_empty(self):
-        return len(self.items) == 0
+    def is_empty(self) -> bool:
+        return len(self.__items) == 0
 
-    def push(self, item):
-        self.items.append(item)
+    def push(self, item: any) -> None:
+        self.__items.append(item)
 
-    def pop(self):
+    def pop(self) -> any:
         if not self.is_empty():
-            return self.items.pop()
+            return self.__items.pop()
         raise IndexError("удаление из пустого стека")
 
-    def peek(self):
+    def peek(self) -> any:
         if not self.is_empty():
-            return self.items[-1]
+            return self.__items[-1]
         raise IndexError("получение из пустого стека")
 
-    def size(self):
-        return len(self.items)
+    def size(self) -> int:
+        return len(self.__items)
+
+    def __str__(self) -> str:
+        return '\n'.join([f"{i+1}\t {delivery}" for i, delivery in enumerate(self.__items)])
